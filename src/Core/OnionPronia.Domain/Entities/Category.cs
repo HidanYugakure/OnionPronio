@@ -6,6 +6,6 @@ namespace OnionPronia.Domain.Entities
 {
     public class Category:BaseNameableEntities
     {       
-        ICollection<Product> Products { get; set; }
+       public ICollection<Product> Products { get; set; }
     }
 }

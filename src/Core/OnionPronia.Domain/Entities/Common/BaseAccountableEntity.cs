@@ -3,7 +3,7 @@
 
 namespace OnionPronia.Domain.Entities.Common
 {
-    public class BaseAccountableEntity:BaseEntity
+    public abstract class BaseAccountableEntity:BaseEntity
     {
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdateAt { get; set; }

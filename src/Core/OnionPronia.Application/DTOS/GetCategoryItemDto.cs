@@ -3,7 +3,7 @@
 namespace OnionPronia.Application.DTOS
 {
     public record GetCategoryItemDto(
-        int Id,
+        long Id,
         string Name,
         int ProductCount
         );

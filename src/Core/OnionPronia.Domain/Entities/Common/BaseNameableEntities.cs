@@ -3,8 +3,8 @@
 
 namespace OnionPronia.Domain.Entities.Common
 {
-    public class BaseNameableEntities: BaseAccountableEntity
+    public abstract class BaseNameableEntities: BaseAccountableEntity
     {
-        string Name { get; set; }
+       public string Name { get; set; }
     }
 }

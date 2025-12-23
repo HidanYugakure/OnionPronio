@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configuration\" />
+    <ProjectReference Include="..\..\Core\OnionPronia.Application\OnionPronia.Application.csproj" />
   </ItemGroup>
 
 </Project>
