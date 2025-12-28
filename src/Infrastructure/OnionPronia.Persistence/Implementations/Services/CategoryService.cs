@@ -41,9 +41,18 @@ namespace OnionPronia.Persistence.Implementations.Services
 
         public async Task CreateCategoryAsync(PostCategoryDto categoryDto)
         {
+            //Category existed =_repository.GetAll(c=>c.Name == categoryDto.Name).FirstOrDefault();
+
+            bool result = await _repository.AnyAsync(c => c.Name == categoryDto.Name /*&& c.Id!=id*/);
+            if (result)
+            {
+                throw new Exception("Category with the same name already exists");
+            }
+
             Category category = new Category
             {
-                Name = categoryDto.Name
+                Name = categoryDto.Name,
+                CreatedAt= DateTime.Now
             };
             _repository.Add(category);
             await _repository.SaveChangesAsync();
@@ -60,6 +69,7 @@ namespace OnionPronia.Persistence.Implementations.Services
                 throw new KeyNotFoundException("Category not found");
             }
             existing.Name = categoryDto.Name;
+            existing.UpdateAt = DateTime.Now;
             _repository.Update(existing);
             await _repository.SaveChangesAsync();
         }

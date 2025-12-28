@@ -18,6 +18,8 @@ namespace OnionPronia.Repositories.Generic
           Task<T?> GetByIdAsynch(int? id, params string[] includes);
           void Update(T entity);
           void Delete(T entity);
+
+          Task<bool> AnyAsync(Expression<Func<T, bool>> func);
           Task SaveChangesAsync();
     }
 }

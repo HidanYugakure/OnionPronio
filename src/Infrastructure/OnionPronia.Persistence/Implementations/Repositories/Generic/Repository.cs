@@ -102,5 +102,10 @@ namespace OnionPronia.Persistence.Implementations.Repositories.Generic
 
             return query;
         }
+
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> func)
+        {
+            return await _dbSet.AnyAsync(func);
+        }
     }
 }

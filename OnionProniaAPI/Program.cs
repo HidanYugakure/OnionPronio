@@ -29,7 +29,6 @@ namespace OnionProniaAPI
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
