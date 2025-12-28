@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OnionPronia.Application.DTOS
+namespace OnionPronia.Application.DTOS.Products
 {
     public record GetProductInCategoryDto
          (

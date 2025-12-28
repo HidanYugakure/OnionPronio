@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OnionPronia.Application.DTOS;
+using OnionPronia.Application.DTOS.Categories;
 using OnionPronia.Application.Interface.Repositories;
 using OnionPronia.Application.Interface.Services;
 
@@ -11,9 +11,9 @@ namespace OnionProniaAPI.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryRepository _repository;
-        private readonly ICategoryServices _service;
+        private readonly ICategoryService _service;
 
-        public CategoriesController(ICategoryRepository repository, ICategoryServices services)
+        public CategoriesController(ICategoryRepository repository, ICategoryService services)
         {
             _repository = repository;
             _service = services;

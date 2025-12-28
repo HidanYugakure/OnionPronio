@@ -10,12 +10,12 @@ namespace OnionPronia.Repositories.Generic
           Expression<Func<T, object>>? sort = null,
           bool isDesc = false,
           int page = 0,
-          int Take = 0,
+          int take = 0,
           params string[]? includes
           );
           void Add(T entity);
 
-          Task<T?> GetByIdAsynch(int? id, params string[] includes);
+          Task<T?> GetByIdAsynch(long? id, params string[] includes);
           void Update(T entity);
           void Delete(T entity);
 
