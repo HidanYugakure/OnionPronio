@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnionPronia.Application.Validators
+namespace OnionPronia.Application.Validators.Categories
 {
     public class PutCategoryDtoValidator:AbstractValidator<PutCategoryDto>
     {

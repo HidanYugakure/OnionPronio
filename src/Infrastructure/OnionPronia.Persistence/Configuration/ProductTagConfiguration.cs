@@ -9,12 +9,27 @@ using System.Threading.Tasks;
 
 namespace OnionPronia.Persistence.Configuration
 {
-    internal class ProductTagConfiguration: IEntityTypeConfiguration<ProductTag>
+    internal class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
-        public void Configure(EntityTypeBuilder<ProductTag> builder)
+        public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasKey(pt => new { pt.ProductId, pt.TagId });
+            builder.Property(p => p.Name) 
+                  .IsRequired()
+                  .HasMaxLength(200);
+            builder.Property(p => p.SKU) 
+                  .IsRequired()
+                  .HasMaxLength(100);
+          builder.Property(p => p.Price)
+                    .IsRequired()
+                    .HasColumnType("decimal(18,2)");
+          builder.Property(p => p.Description)
+                  .IsRequired()
+                  .HasMaxLength(5000);
+         builder.Property(p => p.SKU)
+                  .HasColumnType( "char(10)" );
+         builder.HasIndex(p => p.SKU)
+                  .IsUnique();
+
         }
-     
     }
 }
