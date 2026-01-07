@@ -60,8 +60,7 @@ namespace OnionPronia.Persistence.Implementations.Services
             await _repository.SaveChangesAsync();
         }
 
-
-        public async Task UpdateAsync(int id, PutCategoryDto categoryDto)
+        public async Task UpdateAsync(long id, PutCategoryDto categoryDto)
         {
             bool result = await _repository.AnyAsync(c => c.Name == categoryDto.Name && c.Id != id);
             if (result) throw new Exception("Category with the same name already exists");
@@ -78,8 +77,20 @@ namespace OnionPronia.Persistence.Implementations.Services
             await _repository.SaveChangesAsync();
         }
 
+        public async Task SoftDeleteAsync(long id)
+        {
+            Category existed = await _repository.GetByIdAsynch(id);
+            if (existed is null) throw new Exception("Category not found");
+            existed.IsDeleted = true;
+            _repository.Update(existed);
+            await _repository.SaveChangesAsync();
+        }
+        Task<GetCategoryItemDto> ICategoryService.GetByIdAsync(int? id)
+        {
+            throw new NotImplementedException();
+        }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(long id)
         {
             Category? existing = await _repository.GetByIdAsynch(id);
             if (existing is null)
@@ -88,11 +99,6 @@ namespace OnionPronia.Persistence.Implementations.Services
             }
             _repository.Delete(existing);
             await _repository.SaveChangesAsync();
-        }
-
-        Task<GetCategoryItemDto> ICategoryService.GetByIdAsync(int? id)
-        {
-            throw new NotImplementedException();
         }
     }
 

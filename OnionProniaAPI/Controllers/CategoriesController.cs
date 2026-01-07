@@ -70,7 +70,7 @@ namespace OnionProniaAPI.Controllers
             await _service.UpdateAsync(id.Value, categoryDto);
             return NoContent();
         }
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id is null || id < 1)
@@ -80,5 +80,14 @@ namespace OnionProniaAPI.Controllers
             await _service.DeleteAsync(id.Value);
             return NoContent();
         }
+
+        [HttpDelete("{id}/soft")]
+        public async Task<IActionResult> SoftDelete(long id)
+        {
+            await _service.SoftDeleteAsync(id);
+            return NoContent();
+        }
+
+
     }
 }

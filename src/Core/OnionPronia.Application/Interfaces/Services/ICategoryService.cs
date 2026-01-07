@@ -12,7 +12,8 @@ namespace OnionPronia.Application.Interface.Services
         Task<IReadOnlyList<GetCategoryItemDto>> GetAllAsync(int page, int take);
         Task<GetCategoryItemDto> GetByIdAsync(int? id);
         Task CreateCategoryAsync(PostCategoryDto categoryDto);
-        Task UpdateAsync(int id, PutCategoryDto categoryDto);
-        Task DeleteAsync(int id);
+        Task UpdateAsync(long id, PutCategoryDto categoryDto);
+        Task DeleteAsync(long id);
+        Task SoftDeleteAsync(long id);
     }
 }

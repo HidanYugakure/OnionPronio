@@ -107,5 +107,10 @@ namespace OnionPronia.Persistence.Implementations.Repositories.Generic
         {
             return await _dbSet.AnyAsync(func);
         }
+
+        public Task<T?> GetByIdAsynch(long? id, params string[] includes)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

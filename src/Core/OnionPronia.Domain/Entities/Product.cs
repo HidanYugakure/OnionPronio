@@ -1,11 +1,12 @@
 ﻿using OnionPronia.Domain.Entities.Common;
-using System;
+
 
 namespace OnionPronia.Domain.Entities
 {
     public class Product: BaseNameableEntities
     {
-       
+        public static object ProductColors;
+
         public string SKU { get; set; }
         public decimal Price { get; set; }
         public int Stock { get; set; }

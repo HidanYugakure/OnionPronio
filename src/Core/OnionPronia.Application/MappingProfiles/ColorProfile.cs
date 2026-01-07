@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using OnionPronia.Application.DTOs;
 using OnionPronia.Application.DTOS.Products;
 using OnionPronia.Application.DTOS.Tags;
 using OnionPronia.Domain.Entities;
@@ -10,23 +11,17 @@ using System.Threading.Tasks;
 
 namespace OnionPronia.Application.MappingProfiles
 {
-    internal class ProductProfile: Profile
+    internal class ColorProfile: Profile
     {
-        public ProductProfile()
+        public ColorProfile()
         {
-            CreateMap<Product, GetProductInCategoryDto>();
-            CreateMap<Product, GetProductItemDto>()
-                .ForCtorParam(
-                nameof(GetProductItemDto.CategoryName),
-                opt => opt.MapFrom(p => p.Category.Name)
-                );
-            CreateMap<Product, GetProductDto>()
-                .ForCtorParam(nameof(GetProductDto.CategoryDto),
-                opt => opt.MapFrom(p => p.Category))
-                .ForCtorParam(nameof(GetProductDto.TagDtos),
-                opt => opt.MapFrom(p => p.ProductTags
-                .Select(pt => new GetTagInProductDto(pt.Tag.Id, pt.Tag.Name))
-                .ToList()));
+
+            CreateMap<Color, GetColorDto>();
+            CreateMap<Color, GetColorItemDto>()
+                 .ForCtorParam(nameof(GetColorItemDto.ProductCount),
+                    opt => opt.MapFrom(c => c.ProductColors.Count)); ;
+            CreateMap<PostColorDto, Color>();
+            CreateMap<PutColorDto, Color>();
         }
     }
 }

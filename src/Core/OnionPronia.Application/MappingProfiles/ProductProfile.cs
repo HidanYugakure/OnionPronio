@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using OnionPronia.Application.DTOs;
 using OnionPronia.Application.DTOS.Products;
 using OnionPronia.Application.DTOS.Tags;
 using OnionPronia.Domain.Entities;
@@ -26,7 +27,12 @@ namespace OnionPronia.Application.MappingProfiles
                 .ForCtorParam(nameof(GetProductDto.TagDtos),
                 opt => opt.MapFrom(p => p.ProductTags
                 .Select(pt => new GetTagInProductDto(pt.Tag.Id, pt.Tag.Name))
-                .ToList()));
+                .ToList()))
+                .ForCtorParam(nameof(GetProductDto.ColorDtos),
+                opt => opt.MapFrom(p => p.ProductColors
+               .Select(pt => new GetColorInProductDto(pt.Color.Id, pt.Color.Name))
+               .ToList()));
+
         }
     }
 }

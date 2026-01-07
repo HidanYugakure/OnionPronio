@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using OnionPronia.Application.DTOs;
 using OnionPronia.Application.DTOS.Categories;
 using System;
 using System.Collections.Generic;
@@ -8,18 +9,20 @@ using System.Threading.Tasks;
 
 namespace OnionPronia.Application.Validators.Categories
 {
-    public class PutCategoryDtoValidator:AbstractValidator<PutCategoryDto>
+    public class PutTagDtoValidator : AbstractValidator<PutTagDto>
     {
-        private const int MaxNameLength = 100;
-        private const int MinNameLength = 3;
-        public PutCategoryDtoValidator()
+        private const int MAX_LIMIT = 200;
+        private const int MIN_LIMIT = 5;
+        public PutTagDtoValidator()
         {
-            RuleFor(c => c.Name)
-                .NotEmpty().WithMessage("Category name is required")
-                .MaximumLength(MaxNameLength).WithMessage("Category name must not exceed 100 characters")
-                .MinimumLength(MinNameLength).WithMessage("Category name must be at least 3 characters long")
-                .Matches("^[a-zA-Z0-9 ]+$").WithMessage("Category name can only contain alphanumeric characters and spaces");
-
+            RuleFor(x => x.Name)
+            .NotEmpty()
+            .WithMessage("Name is required")
+            .MaximumLength(MAX_LIMIT)
+            .WithMessage("Name must be less than 150 characters")
+            .MinimumLength(MIN_LIMIT)
+            .WithMessage("Name must be more than 1 characters")
+            .Matches(@"^[A-Za-z0-9\s]*$");
         }
     }
 }

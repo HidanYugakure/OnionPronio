@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using OnionPronia.Domain.Entities;
+
 
 namespace OnionPronia.Persistence.Configuration
 {
-    internal class ProductColorConfiguration
+    internal class ProductColorConfiguration : IEntityTypeConfiguration<ProductColor>
     {
+        void IEntityTypeConfiguration<ProductColor>.Configure(EntityTypeBuilder<ProductColor> builder)
+        {
+            builder .HasKey(pc => new { pc.ProductId, pc.ColorId });
+        }
     }
 }

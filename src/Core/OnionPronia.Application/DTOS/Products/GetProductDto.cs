@@ -1,4 +1,5 @@
-﻿using OnionPronia.Application.DTOS.Tags;
+﻿using OnionPronia.Application.DTOs;
+using OnionPronia.Application.DTOS.Tags;
 using OnionPronia.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace OnionPronia.Application.DTOS.Products
         string SKU,
         string Description,
         GetProductInCategoryDto CategoryDto,
-        ICollection<GetTagInProductDto> TagDtos
+        ICollection<GetTagInProductDto> TagDtos,
+        ICollection<GetColorInProductDto> ColorDtos
     );
 }

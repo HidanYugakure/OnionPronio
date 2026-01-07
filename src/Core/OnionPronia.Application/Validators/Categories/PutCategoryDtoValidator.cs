@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace OnionPronia.Application.Validators.Categories
 {
-    public class PutCategoryDtoValidator:AbstractValidator<PutCategoryDto>
+    public class PutColorDtoValidator:AbstractValidator<PutCategoryDto>
     {
         private const int MaxNameLength = 100;
         private const int MinNameLength = 3;
-        public PutCategoryDtoValidator()
+        public PutColorDtoValidator()
         {
             RuleFor(c => c.Name)
                 .NotEmpty().WithMessage("Category name is required")

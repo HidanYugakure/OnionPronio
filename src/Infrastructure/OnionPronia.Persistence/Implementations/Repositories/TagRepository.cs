@@ -10,10 +10,9 @@ using System.Threading.Tasks;
 
 namespace OnionPronia.Persistence.Implementations.Repositories
 {
-    internal class TagRepository:Repository<Tag>, ITagRepository
+    internal class TagRepository : Repository<Tag>, ITagRepository
     {
-        public TagRepository(AppDbContext context) : base(context)
-        {
-        }
+        public TagRepository(AppDbContext context) : base(context) { }
+
     }
 }

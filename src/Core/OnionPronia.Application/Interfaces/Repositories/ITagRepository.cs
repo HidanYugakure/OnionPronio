@@ -2,12 +2,10 @@
 using OnionPronia.Repositories.Generic;
 using System;
 
-
-
 namespace OnionPronia.Application.Interface.Repositories
 {
-    public interface ICategoryRepository: IRepository<Category>
+    public interface ITagRepository : IRepository<Tag>
     {
-
+        Task<Tag?> GetByIdAsync(long id);
     }
 }

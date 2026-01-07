@@ -4,8 +4,8 @@ using System;
 
 namespace OnionPronia.Domain.Entities
 {
-    public class Tag:BaseNameableEntities
-    {
-        ICollection<ProductTag> ProductTags { get; set; }
+    public class Tag : BaseNameableEntities
+    { 
+        public ICollection<ProductTag> ProductTags { get; set; }
     }
 }

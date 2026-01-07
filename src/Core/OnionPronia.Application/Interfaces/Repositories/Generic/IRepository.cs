@@ -1,9 +1,10 @@
-﻿using System;
+﻿using OnionPronia.Domain.Entities.Common;
+using System;
 using System.Linq.Expressions;
 
 namespace OnionPronia.Repositories.Generic
 {
-    public interface IRepository<T> where T : class, new()
+    public interface IRepository<T> where T : BaseEntity, new()
     {
          IQueryable<T> GetAll(
           Expression<Func<T, bool>>? func = null,

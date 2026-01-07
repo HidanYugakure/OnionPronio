@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using OnionPronia.Application.DTOs;
 using OnionPronia.Application.DTOS.Categories;
 using OnionPronia.Application.Interface.Repositories;
 using System;
@@ -9,29 +10,20 @@ using System.Threading.Tasks;
 
 namespace OnionPronia.Application.Validators
 {
-    public class PostCategoryDtoValidator:AbstractValidator<PostCategoryDto>
+    public class PostTagDtoValidator : AbstractValidator<PostTagDto>
     {
-        private const int MaxNameLength = 100;
-        private const int MinNameLength = 3;
-        public PostCategoryDtoValidator()
+        private const int MAX_LIMIT = 200;
+        private const int MIN_LIMIT = 5;
+        public PostTagDtoValidator()
         {
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Category name is required")
-                .MaximumLength(MaxNameLength).WithMessage("Category name must not exceed 100 characters")
-                .MinimumLength(MinNameLength).WithMessage("Category name must be at least 3 characters long")
-                .Matches("^[a-zA-Z0-9 ]+$").WithMessage("Category name can only contain alphanumeric characters and spaces")
-                .Must(CheckName).WithMessage("Category name contains prohibited words");
-
-            //.MustAsync(async (name, cancellation) =>
-            //{
-            //    var exists = await repository.AnyAsync(c => c.Name == name);
-            //    return !exists;
-            //}).WithMessage("Category with the same name already exists");
-        }
-        private bool CheckName(string name)
-        {
-            var prohibitedNames = new List<string> { "Invalid", "Test", "Sample" };
-            return !prohibitedNames.Contains(name);
+                .NotEmpty()
+                .WithMessage("Name is required")
+                .MaximumLength(MAX_LIMIT)
+                .WithMessage("Name must be less than 150 characters")
+                .MinimumLength(MIN_LIMIT)
+                .WithMessage("Name must be more than 1 characters")
+                .Matches(@"^[A-Za-z0-9\s]*$");
         }
     }
 }

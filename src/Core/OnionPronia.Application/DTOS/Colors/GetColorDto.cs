@@ -1,6 +1,4 @@
-﻿
-
-using OnionPronia.Application.DTOs.Products;
+﻿using System; 
 
 namespace OnionPronia.Application.DTOs
 {

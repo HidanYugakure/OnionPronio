@@ -14,9 +14,9 @@ namespace OnionPronia.Persistence.Configuration
         public void Configure( EntityTypeBuilder<Category> builder)
         {
             builder.Property(c => c.Name) //name islemedi
-                    .IsRequired()
-                    .HasMaxLength(100);
-            builder
+                     .IsRequired()
+                     .HasColumnType("varchar(150)");
+            builder 
                 .HasIndex(c => c.Name)
                 .IsUnique();
 
