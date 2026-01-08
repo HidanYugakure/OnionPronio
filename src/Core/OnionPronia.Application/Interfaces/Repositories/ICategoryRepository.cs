@@ -6,6 +6,5 @@ namespace OnionPronia.Application.Interface.Repositories
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-
     }
 }

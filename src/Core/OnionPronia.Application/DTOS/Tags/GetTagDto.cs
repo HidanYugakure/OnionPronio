@@ -1,8 +1,8 @@
 ﻿
 
-namespace OnionPronia.Application.DTOs
+namespace OnionPronia.Application.DTOs.AppUsers
 {
-    public record GetTagDto(long Id,string Name);
+    public record LoginDto(string UsernameorEmail,string Password);
     
     
 }

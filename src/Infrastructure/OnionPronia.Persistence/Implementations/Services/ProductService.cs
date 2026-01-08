@@ -5,6 +5,7 @@ using OnionPronia.Application.DTOS.Products;
 using OnionPronia.Application.Interface.Repositories;
 using OnionPronia.Application.Interfaces.Services;
 using OnionPronia.Domain.Entities;
+using System.Reflection.Metadata.Ecma335;
 
 namespace OnionPronia.Persistence.Implementations.Services
 {
@@ -22,24 +23,7 @@ namespace OnionPronia.Persistence.Implementations.Services
             _tagRepository = tagRepository;
             _mapper = mapper;
         }
-        public async Task<IReadOnlyList<GetProductItemDto>> GetAllAsync(int page, int take)
-        {
-            IReadOnlyList<Product> products = await _repository.GetAll(
-                page: page,
-                take: take,
-                includes: nameof(Product.Category)
-                ).ToListAsync();
-            return _mapper.Map<IReadOnlyList<GetProductItemDto>>(products);
-        }
-        public async Task<GetProductDto> GetByIdAsync(long id)
-        {
-            Product product = await _repository.GetByIdAsync(id,
-                $"{nameof(Product.ProductTags)}.{nameof(ProductTag.Tag)}",
-                $"{nameof(Product.ProductColors)}.{nameof(ProductColor.Color)}",
-                 nameof(Product.Category));
-            if (product is null) throw new Exception("entity not found");
-            return _mapper.Map<GetProductDto>(product);
-        }
+
         public async Task CreateProductAsync(PostProductDto productDto)
         {
             bool result = await _repository.AnyAsync(p => p.Name == productDto.Name);
@@ -59,12 +43,27 @@ namespace OnionPronia.Persistence.Implementations.Services
             }
             Product product = _mapper.Map<Product>(productDto);
             _repository.Add(product);
-            await _repository.SaveChangesAsync();
+            await _repository.SaveChangesAsync(); //videodan kocurdum biraz
         }
 
-        public Task<object?> GetAllAsynch(int page, int pageSize)
+        public async Task<IReadOnlyList<GetProductItemDto>> GetAllAsync(int page, int take)
         {
-            throw new NotImplementedException();
+
+            IReadOnlyList<Product> products = await _repository.GetAll(
+                page: page,
+                take: take,
+                includes: nameof(Product.Category)
+                ).ToListAsync();
+            return _mapper.Map<IReadOnlyList<GetProductItemDto>>(products);
+        }
+
+        public async Task<GetProductDto> GetByIdAsync(int id)
+        {
+          Product product = await _repository.GetByIdAsynch(id,
+              $"{nameof(Product.ProductTags)}.{nameof(ProductTag.Tag)}",
+              $"{nameof(Product.ProductColors)}.{nameof(ProductColor.Color)}",
+              nameof(Product.Category));
+              return _mapper.Map<GetProductDto>(product);
         }
     }
 }

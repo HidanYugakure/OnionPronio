@@ -16,6 +16,10 @@ namespace OnionPronia.Persistence.Configuration
             builder.Property(t => t.Name) //name islemedi
                    .IsRequired()
                    .HasMaxLength(100);
+
+            builder
+            .HasIndex(t => t.Name)
+            .IsUnique();
         }
     }
     

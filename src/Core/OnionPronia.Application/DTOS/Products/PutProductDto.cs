@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace OnionPronia.Application.DTOS.Products
 {
-    public record  PostProductDto
-    (   string Name,
+    public record  PutProductDto
+    ( 
+        string Name,
         decimal Price,
         string SKU,
         string Description,

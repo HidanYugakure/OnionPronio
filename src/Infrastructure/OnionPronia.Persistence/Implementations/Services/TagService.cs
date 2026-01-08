@@ -33,7 +33,7 @@ namespace OnionPronia.Persistence.Implementations.Services
 
         public async Task DeleteAsync(long id)
         {
-            Tag? existed = await _repository.GetByIdAsync(id);
+            Tag? existed = await _repository.GetByIdAsynch(id);
             if (existed is null) throw new Exception("Tag not found");
             _repository.Delete(existed);
             await _repository.SaveChangesAsync();
@@ -54,12 +54,10 @@ namespace OnionPronia.Persistence.Implementations.Services
         public async Task<GetTagDto> GetByIdAsync(long? id)
         {
             if (id is null) throw new Exception("Id is required");
-            Tag? tag = await _repository.GetByIdAsync(id.Value);
+            Tag? tag = await _repository.GetByIdAsynch(id.Value);
             if (tag is null) throw new Exception("Tag not found");
             return _mapper.Map<GetTagDto>(tag);
-
         }
-
         public async Task UpdateAsync(long id, PutTagDto tagDto)
         {
             bool result = await _repository.AnyAsync(t => t.Name == tagDto.Name && t.Id != id);
@@ -67,7 +65,7 @@ namespace OnionPronia.Persistence.Implementations.Services
             {
                 throw new Exception($"Tag name:{tagDto.Name} already exists");
             }
-            Tag? existed = await _repository.GetByIdAsync(id);
+            Tag? existed = await _repository.GetByIdAsynch(id);
             if (existed is null) throw new Exception("Tag not found");
             existed = _mapper.Map(tagDto, existed);
             existed.UpdateAt = DateTime.Now;

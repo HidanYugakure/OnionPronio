@@ -23,9 +23,9 @@ namespace OnionPronia.Application.Validators.Products
             .GreaterThan(0);
             RuleFor(p => p.TagIds)
              .NotEmpty()
-             .Must(tgIds =>  )
-
-
+             .Must(tgIds => tgIds.Count > 0);
+            RuleForEach(p => p.TagIds)
+             .GreaterThan(0);
 
 
         }
