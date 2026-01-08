@@ -7,7 +7,7 @@ namespace OnionPronia.Application.DTOS.Categories
 {
     public record GetCategoryDto
     (
-        long Id,
+       long Id,
         string Name,
         ICollection<GetProductInCategoryDto> ProductDtos
     );

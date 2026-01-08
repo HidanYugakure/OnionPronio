@@ -1,4 +1,5 @@
 ﻿using OnionPronia.Application.DTOs;
+using OnionPronia.Application.DTOS.Categories;
 using OnionPronia.Application.DTOS.Tags;
 using OnionPronia.Domain.Entities;
 using System;
@@ -16,7 +17,7 @@ namespace OnionPronia.Application.DTOS.Products
         decimal Price,
         string SKU,
         string Description,
-        GetProductInCategoryDto CategoryDto,
+        GetCategoryInProductDto CategoryDto,
         ICollection<GetTagInProductDto> TagDtos,
         ICollection<GetColorInProductDto> ColorDtos
     );

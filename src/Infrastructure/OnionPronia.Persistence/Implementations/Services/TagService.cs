@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using OnionPronia.Application.DTOs;
 using OnionPronia.Application.Interface.Repositories;
 using OnionPronia.Application.Interfaces.Services;
-using OnionPronia.Persistence.Implementations.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OnionPronia.Domain.Entities;
 
 namespace OnionPronia.Persistence.Implementations.Services
 {
@@ -22,29 +18,61 @@ namespace OnionPronia.Persistence.Implementations.Services
             _mapper = mapper;
         }
 
-        public Task CreateAsync(PostTagDto tagDto)
+        public async Task CreateAsync(PostTagDto tagDto)
         {
-            throw new NotImplementedException();
+            bool result = await _repository.AnyAsync(t => t.Name == tagDto.Name);
+            if (result)
+            {
+                throw new Exception($"Tag name:{tagDto.Name} EXISTS");
+                Tag tag = _mapper.Map<Tag>(tagDto);
+                tag.CreatedAt = DateTime.Now;
+                _repository.Add(tag);
+                await _repository.SaveChangesAsync();
+            }
         }
 
-        public Task DeleteAsync(long id)
+        public async Task DeleteAsync(long id)
         {
-            throw new NotImplementedException();
+            Tag? existed = await _repository.GetByIdAsync(id);
+            if (existed is null) throw new Exception("Tag not found");
+            _repository.Delete(existed);
+            await _repository.SaveChangesAsync();
         }
 
-        public Task<IReadOnlyList<GetTagItemDto>> GetAllAsync(int page, int take)
+        public async Task<IReadOnlyList<GetTagItemDto>> GetAllAsync(int page, int take)
         {
-            throw new NotImplementedException();
+            var tags = await _repository.GetAll(
+                sort: t => t.Id,
+                isDesc: true,
+                page: page,
+                take: take,
+                includes: nameof(Tag.ProductTags)
+                ).ToListAsync();
+            return _mapper.Map<IReadOnlyList<GetTagItemDto>>(tags);
         }
 
-        public Task<GetTagDto> GetByIdAsync(long? id)
+        public async Task<GetTagDto> GetByIdAsync(long? id)
         {
-            throw new NotImplementedException();
+            if (id is null) throw new Exception("Id is required");
+            Tag? tag = await _repository.GetByIdAsync(id.Value);
+            if (tag is null) throw new Exception("Tag not found");
+            return _mapper.Map<GetTagDto>(tag);
+
         }
 
-        public Task UpdateAsync(long id, PutTagDto tagDto)
+        public async Task UpdateAsync(long id, PutTagDto tagDto)
         {
-            throw new NotImplementedException();
+            bool result = await _repository.AnyAsync(t => t.Name == tagDto.Name && t.Id != id);
+            if (result)
+            {
+                throw new Exception($"Tag name:{tagDto.Name} already exists");
+            }
+            Tag? existed = await _repository.GetByIdAsync(id);
+            if (existed is null) throw new Exception("Tag not found");
+            existed = _mapper.Map(tagDto, existed);
+            existed.UpdateAt = DateTime.Now;
+            _repository.Update(existed);
+            await _repository.SaveChangesAsync();
         }
     }
-    }
+}

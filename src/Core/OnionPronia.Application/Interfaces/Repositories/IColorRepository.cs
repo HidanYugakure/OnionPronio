@@ -6,6 +6,5 @@ namespace OnionPronia.Application.Interface.Repositories
 {
     public interface IColorRepository : IRepository<Color>
     {
-        Task<Color?> GetByIdAsync(long id);
     }
 }

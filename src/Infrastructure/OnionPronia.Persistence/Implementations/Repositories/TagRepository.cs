@@ -13,6 +13,5 @@ namespace OnionPronia.Persistence.Implementations.Repositories
     internal class TagRepository : Repository<Tag>, ITagRepository
     {
         public TagRepository(AppDbContext context) : base(context) { }
-
     }
 }
