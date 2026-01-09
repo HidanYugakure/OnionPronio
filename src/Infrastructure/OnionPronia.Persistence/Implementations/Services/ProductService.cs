@@ -5,7 +5,6 @@ using OnionPronia.Application.DTOS.Products;
 using OnionPronia.Application.Interface.Repositories;
 using OnionPronia.Application.Interfaces.Services;
 using OnionPronia.Domain.Entities;
-using System.Reflection.Metadata.Ecma335;
 
 namespace OnionPronia.Persistence.Implementations.Services
 {
@@ -64,6 +63,31 @@ namespace OnionPronia.Persistence.Implementations.Services
               $"{nameof(Product.ProductColors)}.{nameof(ProductColor.Color)}",
               nameof(Product.Category));
               return _mapper.Map<GetProductDto>(product);
+        }
+
+        public Task<GetProductDto> GetByIdAsync(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task UpdateProductAsync(long id, PutProductDto productDto)
+        {
+            bool result = await _repository.AnyAsync(p => p.Name == productDto.Name && p.Id != id);
+            if (result)
+            {
+                throw new Exception("Entity already exists");
+            }
+            bool categoryResult = await _categoryRepository.AnyAsync(c => c.Id == productDto.CategoryId);
+            if (!categoryResult)
+            {
+                throw new Exception("Category not found");
+            }
+            var tags = await _tagRepository.GetAll(tag => !productDto.TagIds.Distinct().Contains(tag.Id)).ToListAsync();
+            if (tags.Count != productDto.TagIds.Count)
+                throw new Exception("Tag not found");
+            Product product = await _repository.GetByIdAsynch(id, "ProductTags");
+            _repository.Update(_mapper.Map(productDto, product));
+            await _repository.SaveChangesAsync();
         }
     }
 }

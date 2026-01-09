@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿//using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using OnionPronia.Application.DTOs;
 using OnionPronia.Application.DTOS;
+using OnionPronia.Application.Interface.Services;
 using OnionPronia.Application.Interfaces.Services;
 using OnionProniaAPI.Controllers;
 
@@ -28,7 +29,7 @@ namespace OnionProniaAPI.Controllers
         public async Task<IActionResult> Login([FromForm] LoginDto userDto)
         {
 
-            return Ok(await _service.LoginAsync(userDto));
+            return Ok(await _service.LogInAsync(userDto));
         }
 
     

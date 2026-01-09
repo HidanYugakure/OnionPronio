@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OnionPronia.Application.DTOs;
+using OnionPronia.Application.DTOs.AppUsers;
 using OnionPronia.Application.Interface.Repositories;
 using OnionPronia.Application.Interfaces.Services;
 using OnionPronia.Domain.Entities;
@@ -51,12 +52,12 @@ namespace OnionPronia.Persistence.Implementations.Services
             return _mapper.Map<IReadOnlyList<GetTagItemDto>>(tags);
         }
 
-        public async Task<GetTagDto> GetByIdAsync(long? id)
+        public async Task<PutTagDto> GetByIdAsync(long? id)
         {
             if (id is null) throw new Exception("Id is required");
             Tag? tag = await _repository.GetByIdAsynch(id.Value);
             if (tag is null) throw new Exception("Tag not found");
-            return _mapper.Map<GetTagDto>(tag);
+            return _mapper.Map<PutTagDto>(tag);
         }
         public async Task UpdateAsync(long id, PutTagDto tagDto)
         {
@@ -72,5 +73,10 @@ namespace OnionPronia.Persistence.Implementations.Services
             _repository.Update(existed);
             await _repository.SaveChangesAsync();
         }
+
+        //Task<LoginDto> ITagService.GetByIdAsync(long? id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using OnionPronia.Application.DTOs.AppUsers;
+using OnionPronia.Application.DTOS;
 
 
 namespace OnionPronia.Application.Validators.AppUsers

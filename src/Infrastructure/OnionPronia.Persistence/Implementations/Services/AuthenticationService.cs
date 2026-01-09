@@ -1,11 +1,14 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authentication;
+﻿
+
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using OnionPronia.Application.DTOs;
 using OnionPronia.Application.DTOs.AppUsers;
+using OnionPronia.Application.DTOS;
+using OnionPronia.Application.Interface.Services;
 using OnionPronia.Domain.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -72,6 +75,11 @@ namespace OnionPronia.Persistence.Implementations.Services
                 );
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             return handler.WriteToken(securityToken);
+        }
+
+        public Task<string> LogInAsync(LoginDto userDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }
