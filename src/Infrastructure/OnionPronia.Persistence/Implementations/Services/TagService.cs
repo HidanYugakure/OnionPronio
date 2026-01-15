@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OnionPronia.Application.DTOs;
-using OnionPronia.Application.DTOs.AppUsers;
 using OnionPronia.Application.Interface.Repositories;
 using OnionPronia.Application.Interfaces.Services;
 using OnionPronia.Domain.Entities;
@@ -72,6 +71,11 @@ namespace OnionPronia.Persistence.Implementations.Services
             existed.UpdateAt = DateTime.Now;
             _repository.Update(existed);
             await _repository.SaveChangesAsync();
+        }
+
+        Task<object?> ITagService.GetByIdAsync(long? id)
+        {
+            throw new NotImplementedException();
         }
 
         //Task<LoginDto> ITagService.GetByIdAsync(long? id)

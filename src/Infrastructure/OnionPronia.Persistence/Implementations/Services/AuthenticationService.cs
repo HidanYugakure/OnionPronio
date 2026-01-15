@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using OnionPronia.Application.DTOs;
-using OnionPronia.Application.DTOs.AppUsers;
 using OnionPronia.Application.DTOS;
 using OnionPronia.Application.Interface.Services;
 using OnionPronia.Domain.Entities;

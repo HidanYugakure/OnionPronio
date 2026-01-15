@@ -12,5 +12,6 @@ namespace OnionPronia.Application.Interfaces.Services
         Task CreateAsync(PostTagDto tagDto);
         Task UpdateAsync(long id, PutTagDto tagDto);
         Task DeleteAsync(long id);
+        Task<object?> GetByIdAsync(long? id);
     }
 }
